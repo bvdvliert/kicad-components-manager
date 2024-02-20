@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:KiCadComponentsManager.ViewModels"
+			 xmlns:l="clr-namespace:KiCadComponentsManager.Controls"
+			 xmlns:local="clr-namespace:KiCadComponentsManager"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="KiCadComponentsManager.Views.MainView"
+             x:DataType="vm:MainViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
+
+	<DockPanel>
+
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_Open"/>
+				<Separator/>
+				<MenuItem Header="_Exit"/>
+			</MenuItem>
+		</Menu>
+			<Grid ColumnDefinitions="200, 5, *, 5, 200" RowDefinitions="*" >
+				<TreeView Grid.Column="0" ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}">
+					<TreeView.ItemTemplate>
+						<TreeDataTemplate ItemsSource="{Binding SubCategories}">
+							<TextBlock Text="{Binding Title}"/>
+						</TreeDataTemplate>
+					</TreeView.ItemTemplate>
+				</TreeView>
+
+				<GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
+
+				<TreeDataGrid Grid.Column="2" Source="{Binding PartsSource}"/>
+
+				<GridSplitter Grid.Column="3" ResizeDirection="Columns"/>
+
+				<ItemsControl Grid.Column="4" ItemsSource="{Binding SelectedPart}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate x:CompileBindings="False">
+							<!--TODO make DataTemplate binding compiled with the right x:DataType (Don't know how to do)-->
+							<StackPanel>
+								<TextBlock Text="{Binding Key}" />
+								<TextBox Text="{Binding Value}" />
+							</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Grid>
+	</DockPanel>
+</UserControl>
