@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/KiCadComponentsManager/Secrets/Secrets.cs
+/src/KiCadComponentsManager/Assets/add.svg
+/src/KiCadComponentsManager/Assets/icons8-add-16.png
+/src/KiCadComponentsManager/Assets/icons8-add-96.png
+/src/KiCadComponentsManager/Assets/add-circle-pngrepo-com.png
+/src/KiCadComponentsManager/Assets/add-pngrepo-com.png

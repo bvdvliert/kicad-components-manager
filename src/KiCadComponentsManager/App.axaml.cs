@@ -20,14 +20,14 @@ public partial class App : Application
         {
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = new ComponentsViewModel()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
+            singleViewPlatform.MainView = new ComponentsView
             {
-                DataContext = new MainViewModel()
+                DataContext = new ComponentsViewModel()
             };
         }
 

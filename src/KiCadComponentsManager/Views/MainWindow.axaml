@@ -8,5 +8,6 @@
         x:Class="KiCadComponentsManager.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="KiCadComponentsManager">
-        <views:MainView />
+
+	<views:ComponentsView />
 </Window>

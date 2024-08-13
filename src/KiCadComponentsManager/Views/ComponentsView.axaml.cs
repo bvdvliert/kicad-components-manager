@@ -2,9 +2,9 @@
 
 namespace KiCadComponentsManager.Views;
 
-public partial class MainView : UserControl
+public partial class ComponentsView : UserControl
 {
-    public MainView()
+    public ComponentsView()
     {
         InitializeComponent();
     }

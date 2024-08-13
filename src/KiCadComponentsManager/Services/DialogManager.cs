@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KiCadComponentManager.Services
+namespace KiCadComponentsManager.Services
 {
     public class DialogManager
     {
@@ -112,7 +112,7 @@ namespace KiCadComponentManager.Services
                                 {
                                     AllowMultiple = selectMany,
                                     Title = title ?? "Select any file(s)",
-                                    FileTypeFilter = new FilePickerFileType[] { new("Database") { Patterns = new[] { "*.db" }, MimeTypes = new[] { "/*" } }, FilePickerFileTypes.All }
+                                    FileTypeFilter = [new("Database Library Configuration File(s)") { Patterns = ["*.kicad_dbl"], MimeTypes = ["/*"] }, FilePickerFileTypes.All]
                                 });
 
                 // return the result

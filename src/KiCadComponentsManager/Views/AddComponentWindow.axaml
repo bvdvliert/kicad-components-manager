@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:vm="clr-namespace:KiCadComponentsManager.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+        x:Class="KiCadComponentsManager.Views.AddComponentWindow"
+        Title="AddComponentWindow"
+		x:DataType="vm:AddComponentViewModel">
+	<StackPanel>
+		<Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+			<TextBlock Text="MPN" />
+			<TextBox x:Name="MPNTextb" Grid.Column="1" Text="{Binding MPN}" IsKeyboardFocusWithin="{Binding MPNFocused, Mode=OneWayToSource}" />
+
+			<TextBlock Grid.Row="1" Text="Category" />
+			<ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" 
+					  SelectedValue="{Binding Lib}" ItemsSource="{Binding Libraries}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding name}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</Grid>
+		<ItemsControl ItemsSource="{Binding Component}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate x:CompileBindings="False">
+					<Grid ColumnDefinitions="*,*">
+						<TextBlock Text="{Binding Key}" />
+						<TextBox Grid.Column="1" Text="{Binding Value}" />
+					</Grid>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+		<Grid ColumnDefinitions="*,*">
+			<Button Grid.Column="0" Command="{Binding Confirm}">Add</Button>
+			<Button Grid.Column="1" Command="{Binding Cancel}">Cancel</Button>
+		</Grid>
+	</StackPanel>
+</Window>

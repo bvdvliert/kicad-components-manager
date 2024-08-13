@@ -4,44 +4,56 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:KiCadComponentsManager.ViewModels"
 			 xmlns:l="clr-namespace:KiCadComponentsManager.Controls"
+             xmlns:services="using:KiCadComponentsManager.Services"
 			 xmlns:local="clr-namespace:KiCadComponentsManager"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="KiCadComponentsManager.Views.MainView"
-             x:DataType="vm:MainViewModel">
+		     services:DialogManager.Register="{Binding}"
+             x:Class="KiCadComponentsManager.Views.ComponentsView"
+             x:DataType="vm:ComponentsViewModel"
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib">
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:MainViewModel />
+		<vm:ComponentsViewModel />
 	</Design.DataContext>
 
 	<DockPanel>
 
 		<Menu DockPanel.Dock="Top">
 			<MenuItem Header="_File">
-				<MenuItem Header="_Open"/>
+				<MenuItem Header="_Open" Command="{Binding SelectFilesCommand}"/>
 				<Separator/>
 				<MenuItem Header="_Exit"/>
 			</MenuItem>
-		</Menu>
-			<Grid ColumnDefinitions="200, 5, *, 5, 200" RowDefinitions="*" >
-				<TreeView Grid.Column="0" ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentCategory}">
+		</Menu>		
+			
+			<Grid ColumnDefinitions="200, 5, *, 5, 200" RowDefinitions="40, *">
+				<TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Libraries}" SelectedItem="{Binding CurrentLibrary}">
 					<TreeView.ItemTemplate>
-						<TreeDataTemplate ItemsSource="{Binding SubCategories}">
-							<TextBlock Text="{Binding Title}"/>
+						<TreeDataTemplate>
+							<TextBlock Text="{Binding name}"/>
 						</TreeDataTemplate>
 					</TreeView.ItemTemplate>
 				</TreeView>
 
-				<GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
+				<GridSplitter Grid.RowSpan="2" Grid.Column="1" ResizeDirection="Columns"/>
 
-				<TreeDataGrid Grid.Column="2" Source="{Binding PartsSource}"/>
+				<Button Grid.Column="2" Command="{Binding AddComponent}">
+					<Button.CommandParameter>
+						<sys:Int32>42</sys:Int32>
+					</Button.CommandParameter>
+					Add component
+				</Button>
 
-				<GridSplitter Grid.Column="3" ResizeDirection="Columns"/>
+				<TreeDataGrid Grid.Row="1" Grid.Column="2" Source="{Binding PartsSource}">
+					
+				</TreeDataGrid>
 
-				<ItemsControl Grid.Column="4" ItemsSource="{Binding SelectedPart}">
+				<GridSplitter Grid.RowSpan="2" Grid.Column="3" ResizeDirection="Columns"/>
+
+				<ItemsControl Grid.Row="1" Grid.Column="4" ItemsSource="{Binding SelectedPart}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate x:CompileBindings="False">
-							<!--TODO make DataTemplate binding compiled with the right x:DataType (Don't know how to do)-->
 							<StackPanel>
 								<TextBlock Text="{Binding Key}" />
 								<TextBox Text="{Binding Value}" />
